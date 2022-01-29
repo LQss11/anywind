@@ -1,2 +1,2 @@
 # anywind
-Run anything on your windows machine using docker
+Run libraries on your machine using anywind commands

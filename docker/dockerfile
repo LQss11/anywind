@@ -1,0 +1,16 @@
+# Build anywind
+FROM golang:1.17-alpine as build
+
+WORKDIR /anywind
+COPY / /anywind
+RUN go build -o anywind
+
+
+FROM alpine as runtime 
+COPY --from=build /anywind/anywind /usr/local/bin/anywind
+COPY /libs.json /
+# Create a script allowing us to get flags and options
+RUN echo -e "#!/bin/sh\n\nanywind \$@" >/run.sh
+# Give access to the newly created script to be run
+RUN chmod +x /run.sh
+ENTRYPOINT [ "./run.sh" ]
