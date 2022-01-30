@@ -14,7 +14,15 @@ You can try to run this project using docker, you will first have to build the i
 ```sh
 docker build -t anywind -f ./docker/dockerfile ./cmd
 ```
-then run:
+then to add new lib run:
+
 ```sh
-docker run anywind get --all # this will get you all the libs in libs.json
+docker run -it --rm --mount type=bind,source="$(pwd)"/cmd/libs.json,target=/libs.json anywind add --name lib3 --version 5.0 
 ```
+to get lib you can run:
+```sh
+# this will get you all the libs in libs.json
+docker run -it --rm --mount type=bind,source="$(pwd)"/cmd/libs.json,target=/libs.json anywind get --all
+```
+
+>Windows user update `"$(pwd)"` with `%cd%`
